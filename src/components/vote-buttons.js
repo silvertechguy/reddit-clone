@@ -11,18 +11,11 @@ const VoteButtons = ({ post }) => {
     const votesFromLocalStorage =
       JSON.parse(localStorage.getItem("votes")) || [];
 
-    setVotedPosts(votesFromLocalStorage);
+    setVotedPosts((preVotedPosts) => [
+      ...preVotedPosts,
+      ...votesFromLocalStorage,
+    ]);
   }, []);
-
-  const handleDisablingOfVoting = (postId) => {
-    const previousVotedPosts = votedPosts;
-    setVotedPosts([...previousVotedPosts, postId]);
-
-    localStorage.setItem(
-      "votes",
-      JSON.stringify([...previousVotedPosts, postId])
-    );
-  };
 
   const handleClick = async (type) => {
     setVoting(true);
@@ -48,7 +41,18 @@ const VoteButtons = ({ post }) => {
     });
 
     // Disable the voting button once the voting is successful.
-    handleDisablingOfVoting(post.id);
+    const votesFromLocalStorage =
+      JSON.parse(localStorage.getItem("votes")) || [];
+
+    setVotedPosts((preVotedPosts) => [
+      ...preVotedPosts,
+      ...votesFromLocalStorage,
+      post.id,
+    ]);
+    localStorage.setItem(
+      "votes",
+      JSON.stringify([...votesFromLocalStorage, post.id])
+    );
 
     setVoting(false);
   };
