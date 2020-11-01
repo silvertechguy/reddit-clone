@@ -39,7 +39,7 @@ This application is built using the following technologies:
 ### 1. **Clone the application**
 
 ```sh
-git clone https://github.com/ghoshnirmalya/reddit-clone
+git clone https://github.com/silvertechguy/reddit-clone
 ```
 
 ### 2. **Install necessary dependencies for the application**
